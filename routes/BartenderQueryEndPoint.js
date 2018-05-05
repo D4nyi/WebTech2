@@ -1,21 +1,20 @@
 const express = require('express');
 const router = express.Router();
-const Costumer = require('./Restaurant');
+const Bartender = require('./Restaurant');
 const mongoose = require('mongoose');
 
 
-router.get('/costumer/filldb', function (req, res) {
+router.get('/bar/filldb', function (req, res) {
     //Data to add
-    const costumers = [
-        {"name": "Kis Pista", "billing_address": "Mályinka Fő út 12."},
-        {"name": "Horvát Rozi", "billing_address": "Miskolc miskolc vörösmarty utca 5."}
+    const foods = [
+        {"name": "Bele Sándor"},
+        {"name": "Tóth Melinda"}
     ];
 
-    costumers.forEach((item) => {
-        Costumer.create({ //Add item to db
+    foods.forEach((item) => {
+        Bartender.create({ //Add item to db
             _id: new mongoose.Types.ObjectId(),
-            name: item['type'],
-            billing_address: item['billing_address']
+            name: item['name']
         }, (err, doc) => { //Error Handler
             if (err !== null) {
                 console.log("Hiba!" + err.toString());
@@ -27,11 +26,10 @@ router.get('/costumer/filldb', function (req, res) {
     res.status(200).send("Data Inserted");
 });
 
-router.post("costumer/add", function (req, res) {
-    Costumer.create({ //Add item to db
+router.post("/bar/add", function (req, res) {
+    Bartender.create({ //Add item to db
         _id: new mongoose.Types.ObjectId(),
-        name: req.body['name'],
-        billing_address: req.body['billing_address']
+        name: item['name']
     }, function (err, doc) {
         if (err !== null) { //Error Handler
             console.log("Hiba!" + err.toString());

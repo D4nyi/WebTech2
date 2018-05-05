@@ -1,16 +1,16 @@
 const express = require('express');
 const router = express.Router();
-const Food = require('./Food');
+const Food = require('./Restaurant');
 const mongoose = require('mongoose');
 
 //Initialize db
-router.get('/filldb', function (req, res) {
-    //Date to add
+router.get('/food/filldb', function (req, res) {
+    //Data to add
     const foods = [
         {"type": "Drink", "name": "ASD", "price": 1111, "ingredients": ["A", "S", "D"]},
         {"type": "Drink", "name": "Syrup", "price": 250, "ingredients": ["Water", "Syrup", "Sweetener"]},
         {"type": "Drink", "name": "Red Wine", "price": 500, "ingredients": ["Red Grapes"]},
-        {"type": "Drink", "name": "White Wine", "price": 500, "ingredients": ["Grapes"]},
+        {"type": "Drink", "name": "Wine", "price": 500, "ingredients": ["Grapes"]},
         {"type": "Food", "name": "Goulash", "price": 1500, "ingredients": ["Carrot", "Paprika", "Meat", "Noodles"]},
         {
             "type": "Food",
@@ -44,8 +44,7 @@ router.get('/filldb', function (req, res) {
     res.status(200).send("Data Inserted");
 });
 
-
-router.post("/add", function (req, res) {
+router.post("/food/add", function (req, res) {
     Food.create({ //Add item to db
         _id: new mongoose.Types.ObjectId(),
         type: req.body['type'],
