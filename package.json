@@ -1,0 +1,18 @@
+{
+  "name": "WebTec2Beadando",
+  "version": "0.0.1",
+  "dependencies": {
+    "express": "^4.16.2",
+    "body-parser": "^1.18.2",
+    "typescript": "^2.7.2",
+    "mongoose": "^5.0.13",
+    "mongodb": "^3.0.7",
+    "bootstrap-sass": "^3.3.7",
+    "jquery": "3.3.1",
+    "bowserify": "^10.2.1",
+    "uglify-js": "^3.3.21"
+  },
+  "scripts": {
+    "start": "node app.js"
+  }
+}
