@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const Food = require('./Restaurant');
+const Food = require('./Food');
 const mongoose = require('mongoose');
 
 //Initialize db
-router.get('/food/filldb', function (req, res) {
+router.get('/filldb', (req, res) => {
     //Data to add
     const foods = [
         {"type": "Drink", "name": "ASD", "price": 1111, "ingredients": ["A", "S", "D"]},
@@ -27,7 +27,7 @@ router.get('/food/filldb', function (req, res) {
     ];
 
     foods.forEach((item) => {
-        Food.create({ //Add item to db
+        Food.reate({ //Add item to db
             _id: new mongoose.Types.ObjectId(),
             type: item['type'],
             name: item['name'],
@@ -41,10 +41,10 @@ router.get('/food/filldb', function (req, res) {
             }
         });
     });
-    res.status(200).send("Data Inserted");
+    res.status(200).send("Foods Inserted");
 });
 
-router.post("/food/add", function (req, res) {
+router.post("/add", (req, res) => {
     Food.create({ //Add item to db
         _id: new mongoose.Types.ObjectId(),
         type: req.body['type'],
@@ -59,5 +59,28 @@ router.post("/food/add", function (req, res) {
         }
     });
 });
+
+router.get("/listDrinks", (req, res) => {
+    Food.find({"type": "Drink"}).exec((err, doc) => {
+        res.status(200).send(doc);
+    });
+});
+
+router.get("/listfoods", (req, res) => {
+    Food.find({"type": "Food"}).exec((err, doc) => {
+        res.status(200).send(doc);
+    });
+});
+
+//Ez még nincs kész
+//Ez szmáloná ki az orderbe a totalPrice-t
+function getTotalPrice(foodNames) {
+    let totalPrice = 0;
+    foodNames.forEach((item) =>
+        Food.find({"name": item}).exec((err, doc) => {
+            totalPrice += doc.price;
+        }));
+    return totalPrice;
+}
 
 module.exports = router;

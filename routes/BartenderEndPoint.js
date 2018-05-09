@@ -1,14 +1,19 @@
 const express = require('express');
 const router = express.Router();
-const Bartender = require('./Restaurant');
+const Bartender = require('./Bartender');
 const mongoose = require('mongoose');
 
-
-router.get('/bar/filldb', function (req, res) {
+//Initialize db
+router.get('/filldb', (req, res) => {
     //Data to add
     const foods = [
         {"name": "Bele Sándor"},
-        {"name": "Tóth Melinda"}
+        {"name": "Tóth Melinda"},
+        {"name": "Nagy Piroska"},
+        {"name": "Megyeri József"},
+        {"name": "Pénztáros Lőrincz"},
+        {"name": "Kertész Ádám"},
+        {"name": "Németh Ferenc"}
     ];
 
     foods.forEach((item) => {
@@ -23,14 +28,14 @@ router.get('/bar/filldb', function (req, res) {
             }
         });
     });
-    res.status(200).send("Data Inserted");
+    res.status(200).send("Bartenders Inserted");
 });
 
-router.post("/bar/add", function (req, res) {
+router.post("/add", (req, res) => {
     Bartender.create({ //Add item to db
         _id: new mongoose.Types.ObjectId(),
         name: item['name']
-    }, function (err, doc) {
+    }, (err, doc) => {
         if (err !== null) { //Error Handler
             console.log("Hiba!" + err.toString());
             console.log(doc);
