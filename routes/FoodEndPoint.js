@@ -27,7 +27,7 @@ router.get('/filldb', (req, res) => {
     ];
 
     foods.forEach((item) => {
-        Food.reate({ //Add item to db
+        Food.create({ //Add item to db
             _id: new mongoose.Types.ObjectId(),
             type: item['type'],
             name: item['name'],
@@ -71,16 +71,5 @@ router.get("/listfoods", (req, res) => {
         res.status(200).send(doc);
     });
 });
-
-//Ez még nincs kész
-//Ez szmáloná ki az orderbe a totalPrice-t
-function getTotalPrice(foodNames) {
-    let totalPrice = 0;
-    foodNames.forEach((item) =>
-        Food.find({"name": item}).exec((err, doc) => {
-            totalPrice += doc.price;
-        }));
-    return totalPrice;
-}
 
 module.exports = router;

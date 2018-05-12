@@ -1,7 +1,17 @@
 const express = require('express');
 const router = express.Router();
 const Costumer = require('./Costumer');
+const Order = require('./Order');
+const Food = require('./Food');
 const mongoose = require('mongoose');
+
+const getTotalPrice = function (foods) {
+    let totalPrice = 0;
+    foods.forEach(function (item) {
+        totalPrice += Number(item.price);
+    });
+    return totalPrice;
+};
 
 //Initialize db
 router.get('/filldb', (req, res) => {
@@ -13,13 +23,13 @@ router.get('/filldb', (req, res) => {
         {"name": "Nagy Tamás", "billing_address": "Budapest Megyeri út 100."},
         {"name": "Kalla László", "billing_address": "Eger Tárkányi út 19."},
         {"name": "Farkas Máté", "billing_address": "Dunaújváros Határ út 35."},
-        {"name": "Petróczki Zoltán", "billing_address": "Tiszaújváros Szent István út 20."}
+        {"name": "Szöllősi Dániel", "billing_address": "Tiszaújváros Szent István út 20."}
     ];
 
     costumers.forEach((item) => {
         Costumer.create({ //Add item to db
             _id: new mongoose.Types.ObjectId(),
-            name: item['type'],
+            name: item['name'],
             billing_address: item['billing_address']
         }, (err, doc) => { //Error Handler
             if (err !== null) {
@@ -43,6 +53,39 @@ router.post("/add", (req, res) => {
             console.log(doc);
             res.status(415).send(doc);
         }
+    });
+});
+
+router.post('/orderFood', function (req, res) {
+    const foods = req.body['foods'];
+    const price = getTotalPrice(foods);
+    Order.create({ //Add item to db
+        _id: new mongoose.Types.ObjectId(),
+        status: "Open",
+        fulfilled: false,
+        received: false,
+        foods: foods,
+        bartendersName: req.body['bartendersName'],
+        costumersName: req.body['costumersName'],
+        totalCost: price
+    }, (err, doc) => { //Error Handler
+        if (err !== null) {
+            console.log("Hiba!" + err.toString());
+            console.log(doc);
+            return res.status(415).send(doc);
+        }
+    });
+});
+
+router.get("/listDrinks", (req, res) => {
+    Food.find({"type": "Drink"}).exec((err, doc) => {
+        res.status(200).send(doc);
+    });
+});
+
+router.get("/listFoods", (req, res) => {
+    Food.find({"type": "Food"}).exec((err, doc) => {
+        res.status(200).send(doc);
     });
 });
 

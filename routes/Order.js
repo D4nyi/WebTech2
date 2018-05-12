@@ -4,10 +4,10 @@ const Schema = mongoose.Schema;
 
 const OrderSchema = new Schema({
     _id: Schema.ObjectId,
-    status: {enum: ["Open", "Close"]},
+    status: {type: String, enum: ["Open", "Closed"], require: [true, "Missing type!"]},
     fulfilled: Boolean,
     received: Boolean,
-    foodNames: Array,
+    foods: [{_id: false, name: String, price: Number}],
     bartendersName: String,
     costumersName: String,
     totalCost: Number

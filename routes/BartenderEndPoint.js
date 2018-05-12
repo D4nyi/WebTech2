@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 //Initialize db
 router.get('/filldb', (req, res) => {
     //Data to add
-    const foods = [
+    const bartenders = [
         {"name": "Bele Sándor"},
         {"name": "Tóth Melinda"},
         {"name": "Nagy Piroska"},
@@ -16,7 +16,7 @@ router.get('/filldb', (req, res) => {
         {"name": "Németh Ferenc"}
     ];
 
-    foods.forEach((item) => {
+    bartenders.forEach((item) => {
         Bartender.create({ //Add item to db
             _id: new mongoose.Types.ObjectId(),
             name: item['name']
