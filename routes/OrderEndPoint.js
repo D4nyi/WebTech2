@@ -32,42 +32,4 @@ router.post("/add", function (req, res) {
     });
 });
 
-router.get("/listOrders", function (req, res) {
-    Order.find({}).exec(function (err, doc) {
-        res.status(200).send(doc);
-    });
-});
-
-router.get("/listOpenOrders", function (req, res) {
-    Order.find({status: true}).exec(function (err, doc) {
-        res.status(200).send(doc);
-    });
-});
-
-router.post("/fulfillOrder", function (req, res) {
-    Order.update(
-        {bartendersName: req.body['bartendersName']},
-        {$set: {received: req.body['received']}}, function (err, doc) {
-            if (err !== null) {
-                res.status(500).json({error: "Application error"});
-                return console.log(err);
-            }
-            res.status(200).json(doc);
-        });
-});
-
-
-router.post("/closeOrder", function (req, res) {
-    Order.update(
-        {bartendersName: req.body['bartendersName']},
-        {$set: {fulfilled: req.body['fulfilled'], status: req.body['status']}}, function (err, doc) {
-            if (err !== null) {
-                res.status(500).json({error: "Application error"});
-                return console.log(err);
-            }
-            res.status(200).json(doc);
-        });
-});
-
-
 module.exports = router;

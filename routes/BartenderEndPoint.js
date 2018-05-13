@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var Bartender = require('./Bartender');
+var Order = require('./Order');
 var mongoose = require('mongoose');
 
 router.post("/add", function (req, res) {
@@ -25,6 +26,35 @@ router.get("/rnd", function (req, res) {
             }
             res.status(200).send(doc);
         });
+    });
+});
+
+router.get("/fulfillOrder", function (req, res) {
+    Order.update(
+        {bartendersName: req.body['bartendersName']},
+        {$set: {received: req.body['received'], fulfilled: req.body['fulfilled']}}, function (err, doc) {
+            if (err !== null) {
+                res.status(500).send(err);
+            }
+            res.status(200).send(doc);
+        });
+});
+
+
+router.post("/closeOrder", function (req, res) {
+    Order.update(
+        {bartendersName: req.body['bartendersName']},
+        {$set: {status: req.body['status']}}, function (err, doc) {
+            if (err !== null) {
+                res.status(415).send(err);
+            }
+            res.status(200).send(doc);
+        });
+});
+
+router.get("/listOpenOrders", function (req, res) {
+    Order.find({status: true}).exec(function (err, doc) {
+        res.status(200).send(doc);
     });
 });
 

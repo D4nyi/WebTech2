@@ -1,3 +1,4 @@
+
 var clicked = false;
 var order = {
     foods: [],
@@ -133,7 +134,6 @@ function listFoods() {
 
     clicked = true;
 }
-
 
 function sendOrder() {
 

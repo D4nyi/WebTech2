@@ -1,21 +1,23 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const app = express();
-const foodQueryEndPoint = require('./routes/FoodEndPoint');
-const costumerQueryEndPoint = require('./routes/CostumerEndPoint');
-const bartenderQueryEndPoint = require('./routes/BartenderEndPoint');
-const orderQueryEndPoint = require('./routes/OrderEndPoint');
-const initdb = require('./routes/FillDataBase');
+var express = require('express');
+var bodyParser = require('body-parser');
+var app = express();
+var foodEndPoint = require('./routes/FoodEndPoint');
+var costumerEndPoint = require('./routes/CostumerEndPoint');
+var bartenderEndPoint = require('./routes/BartenderEndPoint');
+var orderEndPoint = require('./routes/OrderEndPoint');
+var managerEndPoint = require('./routes/ManagerEndPoint');
+var initdb = require('./routes/FillDataBase');
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(express.static('public'));
 
 app.use('/initdb', initdb);
-app.use('/food', foodQueryEndPoint);
-app.use('/bar', bartenderQueryEndPoint);
-app.use('/costumer', costumerQueryEndPoint);
-app.use('/order', orderQueryEndPoint);
+app.use('/manager', managerEndPoint);
+app.use('/food', foodEndPoint);
+app.use('/bar', bartenderEndPoint);
+app.use('/costumer', costumerEndPoint);
+app.use('/order', orderEndPoint);
 
 
 app.listen(8080, function () {
