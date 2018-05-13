@@ -1,7 +1,3 @@
-/*
- * Copyright (c) 2018.05.09. 11:08. Created by Dániel Szöllősi, IU4MA4
- */
-
 const mongoose = require('mongoose');
 
 const db = mongoose.createConnection('mongodb://localhost:27017/Restaurant', {autoIndex: true});

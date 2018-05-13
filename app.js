@@ -5,12 +5,13 @@ const foodQueryEndPoint = require('./routes/FoodEndPoint');
 const costumerQueryEndPoint = require('./routes/CostumerEndPoint');
 const bartenderQueryEndPoint = require('./routes/BartenderEndPoint');
 const orderQueryEndPoint = require('./routes/OrderEndPoint');
+const initdb = require('./routes/FillDataBase');
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(express.static('public'));
 
-
+app.use('/initdb', initdb);
 app.use('/food', foodQueryEndPoint);
 app.use('/bar', bartenderQueryEndPoint);
 app.use('/costumer', costumerQueryEndPoint);

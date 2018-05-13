@@ -13,36 +13,7 @@ const getTotalPrice = function (foods) {
     return totalPrice;
 };
 
-//Initialize db
-router.get('/filldb', (req, res) => {
-    //Data to add
-    const costumers = [
-        {"name": "Kis Pista", "billing_address": "Mályinka Fő út 12."},
-        {"name": "Horvát Rozi", "billing_address": "Miskolc vörösmarty utca 5."},
-        {"name": "Urbán Gábor", "billing_address": "Nyiregyháza Kossuth út 33."},
-        {"name": "Nagy Tamás", "billing_address": "Budapest Megyeri út 100."},
-        {"name": "Kalla László", "billing_address": "Eger Tárkányi út 19."},
-        {"name": "Farkas Máté", "billing_address": "Dunaújváros Határ út 35."},
-        {"name": "Szöllősi Dániel", "billing_address": "Tiszaújváros Szent István út 20."}
-    ];
-
-    costumers.forEach((item) => {
-        Costumer.create({ //Add item to db
-            _id: new mongoose.Types.ObjectId(),
-            name: item['name'],
-            billing_address: item['billing_address']
-        }, (err, doc) => { //Error Handler
-            if (err !== null) {
-                console.log("Hiba!" + err.toString());
-                console.log(doc);
-                return res.status(415).send(doc);
-            }
-        });
-    });
-    res.status(200).send("Costumers Inserted");
-});
-
-router.post("/add", (req, res) => {
+router.post("/add", function (req, res) {
     Costumer.create({ //Add item to db
         _id: new mongoose.Types.ObjectId(),
         name: req.body['name'],
@@ -68,7 +39,7 @@ router.post('/orderFood', function (req, res) {
         bartendersName: req.body['bartendersName'],
         costumersName: req.body['costumersName'],
         totalCost: price
-    }, (err, doc) => { //Error Handler
+    }, function (err, doc) { //Error Handler
         if (err !== null) {
             console.log("Hiba!" + err.toString());
             console.log(doc);
@@ -77,14 +48,20 @@ router.post('/orderFood', function (req, res) {
     });
 });
 
-router.get("/listDrinks", (req, res) => {
-    Food.find({"type": "Drink"}).exec((err, doc) => {
+router.get("/listDrinks", function (req, res) {
+    Food.find({"type": "Drink"}).exec(function (err, doc) {
+        if (err) {
+            res.status(415).send(err.toString());
+        }
         res.status(200).send(doc);
     });
 });
 
-router.get("/listFoods", (req, res) => {
-    Food.find({"type": "Food"}).exec((err, doc) => {
+router.get("/listFoods", function (req, res) {
+    Food.find({"type": "Food"}).exec(function (err, doc) {
+        if (err) {
+            res.status(415).send(err.toString());
+        }
         res.status(200).send(doc);
     });
 });
