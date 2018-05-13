@@ -1,8 +1,8 @@
-const mongoose = require('mongoose');
-const db = require('./Restaurant');
-const Schema = mongoose.Schema;
+var mongoose = require('mongoose');
+var db = require('./Restaurant');
+var Schema = mongoose.Schema;
 
-const CostumerSchema = new Schema({
+var CostumerSchema = new Schema({
     _id: Schema.ObjectId,
     name: String,
     billing_address: String

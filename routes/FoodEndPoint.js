@@ -1,7 +1,7 @@
-const express = require('express');
-const router = express.Router();
-const Food = require('./Food');
-const mongoose = require('mongoose');
+var express = require('express');
+var router = express.Router();
+var Food = require('./Food');
+var mongoose = require('mongoose');
 
 router.post("/add", function (req, res) {
     Food.create({ //Add item to db
@@ -20,13 +20,13 @@ router.post("/add", function (req, res) {
 });
 
 router.get("/listDrinks", function (req, res) {
-    Food.find({"type": "Drink"}).exec((err, doc) => {
+    Food.find({"type": "Drink"}).exec(function (err, doc) {
         res.status(200).send(doc);
     });
 });
 
 router.get("/listfoods", function (req, res) {
-    Food.find({"type": "Food"}).exec((err, doc) => {
+    Food.find({"type": "Food"}).exec(function (err, doc) {
         res.status(200).send(doc);
     });
 });

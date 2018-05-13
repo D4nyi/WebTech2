@@ -1,13 +1,13 @@
-const express = require('express');
-const router = express.Router();
-const Bartender = require('./Bartender');
-const mongoose = require('mongoose');
+var express = require('express');
+var router = express.Router();
+var Bartender = require('./Bartender');
+var mongoose = require('mongoose');
 
 router.post("/add", function (req, res) {
     Bartender.create({ //Add item to db
         _id: new mongoose.Types.ObjectId(),
         name: item['name']
-    }, (err, doc) => {
+    }, function (err, doc) {
         if (err !== null) { //Error Handler
             console.log("Hiba!" + err.toString());
             console.log(doc);

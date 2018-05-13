@@ -1,8 +1,8 @@
-const mongoose = require('mongoose');
-const db = require('./Restaurant');
-const Schema = mongoose.Schema;
+var mongoose = require('mongoose');
+var db = require('./Restaurant');
+var Schema = mongoose.Schema;
 
-const OrderSchema = new Schema({
+var OrderSchema = new Schema({
     _id: Schema.ObjectId,
     status: {type: String, enum: ["Open", "Closed"], require: [true, "Missing type!"]},
     fulfilled: Boolean,

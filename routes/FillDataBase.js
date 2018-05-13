@@ -1,13 +1,13 @@
-const express = require('express');
-const router = express.Router();
-const Bartender = require('./Bartender');
-const Order = require('./Order');
-const Food = require('./Food');
-const Costumer = require('./Costumer');
-const mongoose = require('mongoose');
+var express = require('express');
+var router = express.Router();
+var Bartender = require('./Bartender');
+var Order = require('./Order');
+var Food = require('./Food');
+var Costumer = require('./Costumer');
+var mongoose = require('mongoose');
 
-const getTotalPrice = function (foods) {
-    let totalPrice = 0;
+var getTotalPrice = function (foods) {
+    var totalPrice = 0;
     foods.forEach(function (item) {
         totalPrice += Number(item.price);
     });
@@ -17,7 +17,7 @@ const getTotalPrice = function (foods) {
 //Initialize db
 router.get('/', function (req, res) {
     //Data to add
-    const bartenders = [
+    var bartenders = [
         {name: "Bele Sándor"},
         {name: "Tóth Melinda"},
         {name: "Nagy Piroska"},
@@ -27,11 +27,11 @@ router.get('/', function (req, res) {
         {name: "Németh Ferenc"}
     ];
 
-    bartenders.forEach((item) => {
+    bartenders.forEach(function (item) {
         Bartender.create({ //Add item to db
             _id: new mongoose.Types.ObjectId(),
             name: item['name']
-        }, (err, doc) => { //Error Handler
+        }, function (err, doc) { //Error Handler
             if (err !== null) {
                 console.log("Hiba!" + err.toString());
                 console.log(doc);
@@ -40,7 +40,7 @@ router.get('/', function (req, res) {
         });
     });
     //Data to add
-    const costumers = [
+    var costumers = [
         {name: "Kis Pista", billing_address: "Mályinka Fő út 12."},
         {name: "Horvát Rozi", billing_address: "Miskolc vörösmarty utca 5."},
         {name: "Urbán Gábor", billing_address: "Nyiregyháza Kossuth út 33."},
@@ -50,12 +50,12 @@ router.get('/', function (req, res) {
         {name: "Szöllősi Dániel", billing_address: "Tiszaújváros Szent István út 20."}
     ];
 
-    costumers.forEach((item) => {
+    costumers.forEach(function (item) {
         Costumer.create({ //Add item to db
             _id: new mongoose.Types.ObjectId(),
             name: item['name'],
             billing_address: item['billing_address']
-        }, (err, doc) => { //Error Handler
+        }, function (err, doc) { //Error Handler
             if (err !== null) {
                 console.log("Hiba!" + err.toString());
                 console.log(doc);
@@ -64,7 +64,7 @@ router.get('/', function (req, res) {
         });
     });
     //Data to add
-    const foods = [
+    var foods = [
         {type: "Drink", name: "ASD", price: 1111, ingredients: ["A", "S", "D"]},
         {type: "Drink", name: "Syrup", price: 250, ingredients: ["Water", "Syrup", "Sweetener"]},
         {type: "Drink", name: "Red Wine", price: 500, ingredients: ["Red Grapes"]},
@@ -84,14 +84,14 @@ router.get('/', function (req, res) {
         }
     ];
 
-    foods.forEach((item) => {
+    foods.forEach(function (item) {
         Food.create({ //Add item to db
             _id: new mongoose.Types.ObjectId(),
             type: item['type'],
             name: item['name'],
             price: item['price'],
             ingredients: item['ingredients']
-        }, (err, doc) => { //Error Handler
+        }, function (err, doc) { //Error Handler
             if (err !== null) {
                 console.log("Hiba!" + err.toString());
                 console.log(doc);
@@ -100,7 +100,7 @@ router.get('/', function (req, res) {
         });
     });
     //Data to add
-    const orders = [
+    var orders = [
         {
             status: "Open",
             fulfilled: true,
@@ -182,8 +182,8 @@ router.get('/', function (req, res) {
             costumersName: "Petróczki Zoltán"
         }
     ];
-    let ordersFood;
-    let price = 0;
+    var ordersFood;
+    var price = 0;
     orders.forEach(function (item) {
         ordersFood = item['foods'];
         price = getTotalPrice(ordersFood);

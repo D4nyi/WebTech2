@@ -1,10 +1,10 @@
-const express = require('express');
-const router = express.Router();
-const Order = require('./Order');
-const mongoose = require('mongoose');
+var express = require('express');
+var router = express.Router();
+var Order = require('./Order');
+var mongoose = require('mongoose');
 
-const getTotalPrice = function (foods) {
-    let totalPrice = 0;
+var getTotalPrice = function (foods) {
+    var totalPrice = 0;
     foods.forEach(function (item) {
         totalPrice += item.price;
     });
@@ -12,8 +12,8 @@ const getTotalPrice = function (foods) {
 };
 
 router.post("/add", function (req, res) {
-    const foods = req['foods'];
-    const price = getTotalPrice(foods);
+    var foods = req['foods'];
+    var price = getTotalPrice(foods);
     Order.create({ //Add item to db
         _id: new mongoose.Types.ObjectId(),
         status: "Open",
@@ -23,7 +23,7 @@ router.post("/add", function (req, res) {
         bartendersName: req.body['bartendersName'],
         costumersName: req.body['costumersName'],
         totalCost: price
-    }, (err, doc) => { //Error Handler
+    }, function (err, doc) { //Error Handler
         if (err !== null) {
             console.log("Hiba!" + err.toString());
             console.log(doc);
@@ -33,13 +33,13 @@ router.post("/add", function (req, res) {
 });
 
 router.get("/listOrders", function (req, res) {
-    Order.find({}).exec((err, doc) => {
+    Order.find({}).exec(function (err, doc) {
         res.status(200).send(doc);
     });
 });
 
-router.get("/listOpenOrders", (req, res) => {
-    Order.find({status: true}).exec((err, doc) => {
+router.get("/listOpenOrders", function (req, res) {
+    Order.find({status: true}).exec(function (err, doc) {
         res.status(200).send(doc);
     });
 });
@@ -47,7 +47,7 @@ router.get("/listOpenOrders", (req, res) => {
 router.post("/fulfillOrder", function (req, res) {
     Order.update(
         {bartendersName: req.body['bartendersName']},
-        {$set: {received: req.body['received']}}, (err, doc) => {
+        {$set: {received: req.body['received']}}, function (err, doc) {
             if (err !== null) {
                 res.status(500).json({error: "Application error"});
                 return console.log(err);
@@ -60,7 +60,7 @@ router.post("/fulfillOrder", function (req, res) {
 router.post("/closeOrder", function (req, res) {
     Order.update(
         {bartendersName: req.body['bartendersName']},
-        {$set: {fulfilled: req.body['fulfilled'], status: req.body['status']}}, (err, doc) => {
+        {$set: {fulfilled: req.body['fulfilled'], status: req.body['status']}}, function (err, doc) {
             if (err !== null) {
                 res.status(500).json({error: "Application error"});
                 return console.log(err);

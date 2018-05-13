@@ -1,12 +1,12 @@
-const express = require('express');
-const router = express.Router();
-const Costumer = require('./Costumer');
-const Order = require('./Order');
-const Food = require('./Food');
-const mongoose = require('mongoose');
+var express = require('express');
+var router = express.Router();
+var Costumer = require('./Costumer');
+var Order = require('./Order');
+var Food = require('./Food');
+var mongoose = require('mongoose');
 
-const getTotalPrice = function (foods) {
-    let totalPrice = 0;
+var getTotalPrice = function (foods) {
+    var totalPrice = 0;
     foods.forEach(function (item) {
         totalPrice += Number(item.price);
     });
@@ -18,7 +18,7 @@ router.post("/add", function (req, res) {
         _id: new mongoose.Types.ObjectId(),
         name: req.body['name'],
         billing_address: req.body['billing_address']
-    }, (err, doc) => {
+    }, function (err, doc) {
         if (err !== null) { //Error Handler
             console.log("Hiba!" + err.toString());
             console.log(doc);
@@ -28,8 +28,8 @@ router.post("/add", function (req, res) {
 });
 
 router.post('/orderFood', function (req, res) {
-    const foods = req.body['foods'];
-    const price = getTotalPrice(foods);
+    var foods = req.body['foods'];
+    var price = getTotalPrice(foods);
     Order.create({ //Add item to db
         _id: new mongoose.Types.ObjectId(),
         status: "Open",
