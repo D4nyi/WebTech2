@@ -8,9 +8,11 @@ var orderEndPoint = require('./routes/OrderEndPoint');
 var managerEndPoint = require('./routes/ManagerEndPoint');
 var initdb = require('./routes/FillDataBase');
 
+
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(express.static('public'));
+
 
 app.use('/initdb', initdb);
 app.use('/manager', managerEndPoint);
