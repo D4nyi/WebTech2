@@ -1,4 +1,3 @@
-
 var clicked = false;
 var order = {
     foods: [],
@@ -7,6 +6,7 @@ var order = {
 };
 $(document).ready(function () {
     $('#listFoodsBtn').click(listFoods);
+    document.getElementById('fulfill').addEventListener("click", fullOrder);
 });
 
 function listFoods() {
@@ -185,4 +185,16 @@ function addForm() {
         '    <input type="button" id="order" value="Submit">\n' +
         '</form>');
     document.getElementById('order').addEventListener("click", sendOrder);
+}
+
+function fullOrder() {
+    var asd = $("form").serializeArray();
+    var cname = asd[0].value;
+    console.log(asd);
+    $.ajax({
+        type: "POST",
+        url: "bar/fulfillOrder",
+        dataType: 'json',
+        data: {costumerssName: cname},
+    });
 }

@@ -11,27 +11,28 @@
 </div>
 <script>
     var data = {
-        labels: ["asd", "a", "n"],
+        labels: [],
         datasets: [{
             label: "My First Dataset",
-            data: [300, 50, 100],
-            backgroundColor: ["red", "orange", "lightblue"]
+            data: [],
+            backgroundColor: ["red", "orange", "lightblue", "yellow"]
         }]
     };
-
+    var ctx = document.getElementById("content").getContext("2d");
     $.get('manager/fulfilledOrders', function (fetched) {
         for (var i = 0; i < fetched.length; i++) {
-            data.labels[i] = fetched.costumersName;
+            console.log(fetched);
+            data.labels[i] = fetched[i].bartendersName;
+            data.datasets[0].data[i] = fetched[i].totalCost;
         }
-    });
-
-    var ctx = document.getElementById("content").getContext("2d");
-    new Chart(ctx, {
-        type: 'doughnut',
-        data: data,
-        options: {},
-        responsive: true,
-        maintainAspectRatio: true
+        data.datasets[0].data[0] =
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: data,
+                options: {},
+                responsive: true,
+                maintainAspectRatio: true
+            });
     });
 </script>
 </body>

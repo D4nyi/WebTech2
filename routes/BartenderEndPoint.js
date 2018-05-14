@@ -29,10 +29,10 @@ router.get("/rnd", function (req, res) {
     });
 });
 
-router.get("/fulfillOrder", function (req, res) {
+router.post("/fulfillOrder", function (req, res) {
     Order.update(
-        {bartendersName: req.body['bartendersName']},
-        {$set: {received: req.body['received'], fulfilled: req.body['fulfilled']}}, function (err, doc) {
+        {costumersName: req.body['costumersName']},
+        {$set: {received: true, fulfilled: true, status: "Closed"}}, function (err, doc) {
             if (err !== null) {
                 res.status(500).send(err);
             }
@@ -40,20 +40,8 @@ router.get("/fulfillOrder", function (req, res) {
         });
 });
 
-
-router.post("/closeOrder", function (req, res) {
-    Order.update(
-        {bartendersName: req.body['bartendersName']},
-        {$set: {status: req.body['status']}}, function (err, doc) {
-            if (err !== null) {
-                res.status(415).send(err);
-            }
-            res.status(200).send(doc);
-        });
-});
-
 router.get("/listOpenOrders", function (req, res) {
-    Order.find({status: true}).exec(function (err, doc) {
+    Order.find({status: "Open"}).exec(function (err, doc) {
         res.status(200).send(doc);
     });
 });

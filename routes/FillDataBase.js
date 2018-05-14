@@ -19,11 +19,8 @@ router.get('/', function (req, res) {
     //Data to add
     var bartenders = [
         {name: "Bele Sándor"},
-        {name: "Tóth Melinda"},
         {name: "Nagy Piroska"},
-        {name: "Megyeri József"},
         {name: "Pénztáros Lőrincz"},
-        {name: "Kertész Ádám"},
         {name: "Németh Ferenc"}
     ];
 
@@ -102,7 +99,7 @@ router.get('/', function (req, res) {
     //Data to add
     var orders = [
         {
-            status: "Open",
+            status: "Closed",
             fulfilled: true,
             received: true,
             foods: [
@@ -114,9 +111,9 @@ router.get('/', function (req, res) {
             costumersName: "Urbán Gábor"
         },
         {
-            status: "Open",
+            status: "Closed",
             fulfilled: true,
-            received: false,
+            received: true,
             foods: [
                 {name: "Grilled Chicken Breasts in Sweet&Spicy coat with Salad", price: 2000},
                 {name: "Wine", price: 500}
@@ -127,19 +124,19 @@ router.get('/', function (req, res) {
         {
             status: "Open",
             fulfilled: false,
-            received: true,
+            received: false,
             foods: [
                 {name: "Goulash", price: 1500,},
                 {name: "Grilled Chicken Breasts in Sweet&Spicy coat with Salad", price: 2000},
                 {name: "Red Wine", price: 500},
                 {name: "Dobos Cake", price: 900}],
-            bartendersName: "Tóth Melinda",
+            bartendersName: "Németh Ferenc",
             costumersName: "Kis Pista"
         },
         {
-            status: "Closed",
-            fulfilled: true,
-            received: true,
+            status: "Open",
+            fulfilled: false,
+            received: false,
             foods: [
                 {name: "Dobos Cake", price: 900},
                 {name: "Syrup", price: 250}
@@ -150,19 +147,19 @@ router.get('/', function (req, res) {
         {
             status: "Closed",
             fulfilled: true,
-            received: false,
+            received: true,
             foods: [
                 {name: "Grilled Chicken Breasts in Sweet&Spicy coat with Salad", price: 2000},
                 {name: "Red Wine", price: 500},
                 {name: "Dobos Cake", price: 900,}
             ],
-            bartendersName: "Péntáros Lőrincz",
+            bartendersName: "Pénztáros Lőrincz",
             costumersName: "Kalla László"
         },
         {
-            status: "Closed",
+            status: "Open",
             fulfilled: false,
-            received: true,
+            received: false,
             foods: [
                 {name: "Grilled Chicken Breasts in Sweet&Spicy coat with Salad", price: 2000},
                 {name: "Wine", price: 500}
@@ -172,8 +169,8 @@ router.get('/', function (req, res) {
         },
         {
             status: "Closed",
-            fulfilled: false,
-            received: false,
+            fulfilled: true,
+            received: true,
             foods: [
                 {name: "Goulash", price: 1500,},
                 {name: "Wine", price: 500}
